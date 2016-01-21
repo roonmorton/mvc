@@ -2,7 +2,7 @@
 RewriteEngine on
 
 # Raiz del Proyecto
-#RewriteBase /
+RewriteBase /mvc-base-php
 
 # Condicion para que no lea Directorios ni Archivos
 # Solo activada para que no lea Archivos
@@ -10,7 +10,7 @@ RewriteEngine on
 RewriteCond %{SCRIPT_FILENAME} !-f
  
 # Reescribir la URL solicitada por el usuario
-#   Entrada:  SECCION
-#   Salida: index.php?seccion=SECCION
+#   Entrada:  CONTROLLER/METODO/ARGUMENTO
+#   Salida: index.php?url=CONTROLLER/METODO/ARUMENTO
 
 RewriteRule ^(.+)?$ index.php?url=$1
