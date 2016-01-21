@@ -1,0 +1,3 @@
+
+
+<div class="author">MVC by: <br><?php echo AUTHOR;?></div>

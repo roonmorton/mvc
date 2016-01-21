@@ -1,0 +1,16 @@
+# Activar RewriteEngine
+RewriteEngine on
+
+# Raiz del Proyecto
+#RewriteBase /
+
+# Condicion para que no lea Directorios ni Archivos
+# Solo activada para que no lea Archivos
+#RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+ 
+# Reescribir la URL solicitada por el usuario
+#   Entrada:  SECCION
+#   Salida: index.php?seccion=SECCION
+
+RewriteRule ^(.+)?$ index.php?url=$1
