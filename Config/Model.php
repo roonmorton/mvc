@@ -1,19 +1,21 @@
 <?php
 namespace Config;
 
+use Config\Database;
+
 class Model{
 
-    protected $table;
-    protected $fields[];
-
-
+    private $con;
+    
+    
 
     public function add(){
 
     }
 
-    public static function find($id){
-
+    public  function find($id){
+        $this->con = new Database();
+        return $this->con->queryResult("SELECT * FROM $this->table WHERE id = $id");
     }
 
     public function update(){
