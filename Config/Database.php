@@ -6,28 +6,30 @@ class Database{
     private $con;
 
     public function __construct(){
-        if(!$this->con = @mysqli_connect(HOST,USER,PASSWORD,DB)){
-            echo '<p>allo la Conexion: '. mysqli_connect_error() .'</p>';
+        $this->con = @new \mysqli(HOST,USER,PASSWORD,DB);
+        if(mysqli_connect_errno()){
+            echo 'Fallo la Conexion: (' . mysqli_connect_error();
             exit;
         }
     }
 
     public function queryResult($query){
-        $res = false;
-        if($this->con){
-            if(! ($result = mysqli_query($this->con,$query))){
-                echo '<p>Consulta resulto con un error: ' . mysqli_error($this->con) . '</p>';
-                $res = false;
-            }else{
-                $res = mysqli_fetch_array($result);
-                
-            }
+        if(($result = $this->con->query($query))){
+            $res = array();
+            while($row = $result->fetch_assoc())
+                $res[] = (object)$row;
+            $result->free();
         }else{
-            echo '<p>No Hay Conexion activa para Realizar una Consulta: '.mysqli_error($this->con) .'</p>';
-            $res = false;
+            echo 'No se Pudo Realizar la consulta: ' . $query . " Error: " .$this->con->error; 
         }
-        return $res;
+        return (object)$res;
     }
 
+    public function query($query){
+       if(!($this->con->query($query))){   
+            echo 'No se Pudo Realizar la consulta: ' . $query . " Error: " .$this->con->error;
+            exit;
+        }
+    }
 }
 ?>
