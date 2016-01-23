@@ -11,6 +11,9 @@ abstract class Controller{
         $this->view = new View();
     }
     
-    public abstract function index();
+    
+    public static function redirecto($route){
+        header('Location: '. SERVER . str_replace('.','/',$route));
+    }
 }
 ?>

@@ -17,12 +17,12 @@ class Database{
         if(($result = $this->con->query($query))){
             $res = array();
             while($row = $result->fetch_assoc())
-                $res[] = (object)$row;
+                $res[] = $row;
             $result->free();
         }else{
             echo 'No se Pudo Realizar la consulta: ' . $query . " Error: " .$this->con->error; 
         }
-        return (object)$res;
+        return $res;
     }
 
     public function query($query){

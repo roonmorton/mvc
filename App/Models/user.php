@@ -8,8 +8,8 @@ class user extends Model{
     
     protected $table = 'user';
     protected $fields = ['id','name','username'];
-    
-    
+    protected $primaryKey = 'id';
+        
 }
 
 ?>

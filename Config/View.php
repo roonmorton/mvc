@@ -5,7 +5,7 @@ namespace Config;
 class View{
     
     public function render($adress){
-        $adressView = ROOT . 'Public' . DS . 'Views' . DS . str_replace('.','/',$adress) . '.php';
+        $adressView = ROOT . 'Public' . DS . 'Views' . DS . str_replace('.','/',$adress) . '.phtml';
         if(is_readable($adressView)){
             $headTemplate = ROOT . 'Public' . DS . 'Views' . DS . DEFAULT_TEMPLATE . DS . 'head.php';
             if(is_readable($headTemplate))
@@ -29,6 +29,10 @@ class View{
         $adressJs = SERVER . 'Public/Resources/' . str_replace('.','/',$adress) . '.js';
         $tag = '<script src="'. $adressJs .'"></script>';
         echo $tag;
+    }
+    
+    private static function Route($route, $id = ""){
+        echo SERVER . str_replace('.','/',$route . '/' .$id);
     }
 }
 ?>

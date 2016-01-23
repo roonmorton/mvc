@@ -16,18 +16,26 @@ class Request{
             $this->method = strtolower(array_shift($adress));
             if(!$this->method)
                 $this->method = "index";
-            $this->argument = strtolower(array_shift($adress));
+            if($_POST){
+                foreach($_POST as $key => $post){
+                    $this->$key = $post;
+                }
+                $this->argument = $this;
+            }else{
+                 $this->argument = strtolower(array_shift($adress));
+            }
+            
         }else
             echo 'Error en La ruta... : ' . $_GET['url'];
-        if($_POST){
-            foreach($_POST as $key => $post){
-                $this->$key = $post;
-            }
-        }
+
     }
 
     public function getController(){return $this->controller;}
     public function getMethod(){return $this->method;}
     public function getArgument(){return $this->argument;}
+    
+    public function all(){
+        return get_object_vars($this);
+    }
 }
 ?>

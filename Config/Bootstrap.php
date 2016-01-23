@@ -8,15 +8,14 @@ class Bootstrap{
         $adressController = ROOT . 'App'. DS . 'Controllers' . DS . $controller . 'Controller.php';
         $method = $request->getMethod();
         $argument = $request->getArgument();
-        
-            require_once($adressController);
         if(is_readable($adressController)){
             require_once($adressController);
             $ctrl = 'App\\Controllers\\' . $controller;
-            if(isset($argument))
+            if(isset($argument)){
                 call_user_func_array(array(new $ctrl,$method),array($argument));    
-            else
+            }else{
                 call_user_func(array(new $ctrl,$method));
+            }
         }else
             echo 'Controlador Inaccesible: <strong>' . $adressController .'</strong><br>';
     }

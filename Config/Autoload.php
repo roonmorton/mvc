@@ -10,7 +10,7 @@ class Autoload{
                 if(file_exists($adressClass))
                     require_once $adressClass;
                 else
-                    echo '<br>Clase no Encontrada: ' . $routeClass . '<br>';
+                    echo '<br>Archivo clase no Encontrada: ' . $adressClass . '<br>';
             }    
         );
     }

@@ -1,0 +1,19 @@
+<table border="1">
+    <thead>
+        <th>id</th>
+        <th>Nombre</th>
+        <th>Nombre de Usuario</th>
+        <td>Accion</td>
+    </thead>
+    <tbody>
+        <?php foreach ($this->users as $user):?>
+
+        <tr>
+            <td><?php echo $user->id;?></td>
+            <td><?php echo $user->name;?></td>
+            <td><?php echo $user->username;?></td>
+            <td><a href="<?php $this->Route('home.delete',$user->id);?>" >Borrar </a><a href="<?php ?>">Actualizar</a></td>            
+        </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>
