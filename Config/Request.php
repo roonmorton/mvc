@@ -23,6 +23,7 @@ class Request{
                 $this->argument = $this;
             }else{
                  $this->argument = strtolower(array_shift($adress));
+                
             }
             
         }else

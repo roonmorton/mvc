@@ -7,7 +7,7 @@ define('DEFAULT_CONTROLLER','home');
 
 #Carpeta de template que se cargara por defecto 
 #TEMPLATE/head.php TEMPLATE/footer.php archivos que forman el template
-define('DEFAULT_TEMPLATE','template');
+define('DEFAULT_TEMPLATE','template.main');
 
 #Autor de la Aplicacion
 define('AUTHOR', 'Ron Quevedo');

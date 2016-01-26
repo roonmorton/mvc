@@ -27,9 +27,20 @@ class home extends Controller{
 
     public function store(Request $request){
         $user = new user($request->all());
-        //var_dump($user);
+        $user->save();
+        Controller::redirecto('home.index');
+    }
+    
+    public function edit($id){
+        $this->view->user = user::find($id);
+        $this->view->render('home.edit');
+    }
+    
+    public function update(Request $request){
+        $user = new user($request->all());
         $user->save();
         Controller::redirecto('home.index');
     }
 }
+
 ?>

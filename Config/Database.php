@@ -26,10 +26,26 @@ class Database{
     }
 
     public function query($query){
-       if(!($this->con->query($query))){   
+        if(!($this->con->query($query))){   
             echo 'No se Pudo Realizar la consulta: ' . $query . " Error: " .$this->con->error;
-            exit;
         }
+    }
+
+    public function prepare($query,$params){
+        $refs = array();
+        foreach($params as $key => $value)
+            $refs[$key] = &$params[$key];
+        $p = array_merge(array('type' => str_repeat('s',count($params))),$refs);
+        
+        $statement = $this->con->prepare($query);
+        
+        call_user_func_array(array($statement,'bind_param'),$p);
+        $statement->execute();
+
+    }
+
+    public function __destroy(){
+        $this->con->close();
     }
 }
 ?>

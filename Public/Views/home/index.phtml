@@ -12,7 +12,7 @@
             <td><?php echo $user->id;?></td>
             <td><?php echo $user->name;?></td>
             <td><?php echo $user->username;?></td>
-            <td><a href="<?php $this->Route('home.delete',$user->id);?>" >Borrar </a><a href="<?php ?>">Actualizar</a></td>            
+            <td><a href="<?php $this->Route('home.delete',$user->id);?>" >Borrar </a><a href="<?php $this->Route('home.edit',$user->id) ?>">Actualizar</a></td>            
         </tr>
         <?php endforeach;?>
     </tbody>

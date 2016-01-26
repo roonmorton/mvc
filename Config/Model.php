@@ -20,7 +20,7 @@ class Model{
                 foreach($this->fields as $value){  
                     if($value == $key){
                         $this->$key = $data;
-                        $this->data[] = $data;
+                        $this->data[$key] = $data;
                     }
                 }
 
@@ -32,19 +32,15 @@ class Model{
         $this->con = new Database();
     }
 
-    public function add(){
 
-    }
 
     public static function find($id,$columns = ['*']){
         $instance = new static;
-        return $instance->con->queryResult("SELECT * FROM " . $instance->table . " WHERE id = $id");
+        $result = $instance->con->queryResult("SELECT * FROM " . $instance->table . " WHERE id = $id");
+        return $instance->obj($result);
 
     }
 
-    public function update(){
-
-    }
 
     public static function delete($id){
         $instance = new static;
@@ -60,11 +56,20 @@ class Model{
     }
 
     private function obj($array){
-        foreach($array as $key => $value){
-            $instance = new static;
-            $instance->setVar($value);
-            $arrayObj[] = $instance;
+        if(count($array) > 1){
+            foreach($array as $key => $value){
+                $instance = new static;
+                $instance->setVar($value);
+                $arrayObj[] = $instance;
+            }
+        }else{
+            foreach($array as $key => $value){
+                $instance = new static;
+                $instance->setVar($value);
+                $arrayObj = $instance;
+            }
         }
+
         return $arrayObj;
     }
 
@@ -73,15 +78,25 @@ class Model{
             $this->$key = $value;
         }
     }
-    
+
     public function save(){
         if(isset($this->id)){
-            $query = "INSERT INTO $this->table(" . implode(',',$this->fields) . ") values()";
-            echo $query;
+            #
+            # Sentencia preparada! eliminar un valor de un array falta
+            #
+            $this->fields = array_diff($this->fields,[$this->primaryKey]);
+            
+            unset($this->data[$this->primaryKey]);
+            
+            
+            $query = "UPDATE $this->table SET ". implode('=?, ',$this->fields) ."=?  WHERE $this->primaryKey = $this->id";
+            
+            $this->con->prepare($query,$this->data);
         }else{
             $query = "INSERT INTO $this->table (" . implode(',',$this->fields) . ") VALUES(null,'" . implode("','",$this->data) . "')" ;
+            
+            $this->con->query($query);
         }
-        $this->con->query($query);
     }
 }
 
