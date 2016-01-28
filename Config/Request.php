@@ -22,20 +22,21 @@ class Request{
                 }
                 $this->argument = $this;
             }else{
-                 $this->argument = strtolower(array_shift($adress));
-                
+                $this->argument = strtolower(array_shift($adress));
+
             }
-            
-        }else
+
+        }else{
             echo 'Error en La ruta... : ' . $_GET['url'];
-        exit;
+            exit;
+        }
 
     }
 
     public function getController(){return $this->controller;}
     public function getMethod(){return $this->method;}
     public function getArgument(){return $this->argument;}
-    
+
     public function all(){
         return get_object_vars($this);
     }
