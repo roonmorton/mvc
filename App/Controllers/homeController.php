@@ -10,38 +10,28 @@ use Config\Request;
 class home extends Controller{
 
     public function index(){
-       /* $this->view->users =  user::all(['id','name','username']);
-        $this->view->title = 'Inicio';*/
         $this->view->title = 'Welcome';
         $this->view->render('welcome');
-//        $this->view->render('welcome');
     }
 
     public function delete($id){
-        user::delete($id);
-        Controller::redirecto('home');
+        
     }
 
     public function create(){
-        $this->view->title = 'Crear Usuario';
-        $this->view->render('home.create');
+        
     }
 
     public function store(Request $request){
-        $user = new user($request->all());
-        $user->save();
-        Controller::redirecto('home.index');
+        
     }
     
     public function edit($id){
-        $this->view->user = user::find($id);
-        $this->view->render('home.edit');
+        
     }
     
     public function update(Request $request){
-        $user = new user($request->all());
-        $user->save();
-        Controller::redirecto('home.index');
+        
     }
 }
 
