@@ -10,9 +10,11 @@ use Config\Request;
 class home extends Controller{
 
     public function index(){
-        $this->view->users =  user::all(['id','name','username']);
-        $this->view->title = 'Inicio';
-        $this->view->render('home.index');
+       /* $this->view->users =  user::all(['id','name','username']);
+        $this->view->title = 'Inicio';*/
+        $this->view->title = 'Welcome';
+        $this->view->render('welcome');
+//        $this->view->render('welcome');
     }
 
     public function delete($id){

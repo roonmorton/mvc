@@ -33,7 +33,6 @@ class Model{
     }
 
 
-
     public static function find($id,$columns = ['*']){
         $instance = new static;
         $result = $instance->con->queryResult("SELECT * FROM " . $instance->table . " WHERE id = $id");
@@ -81,22 +80,22 @@ class Model{
 
     public function save(){
         if(isset($this->id)){
-            #
-            # Sentencia preparada! eliminar un valor de un array falta
-            #
             $this->fields = array_diff($this->fields,[$this->primaryKey]);
-            
             unset($this->data[$this->primaryKey]);
-            
-            
             $query = "UPDATE $this->table SET ". implode('=?, ',$this->fields) ."=?  WHERE $this->primaryKey = $this->id";
-            
             $this->con->prepare($query,$this->data);
         }else{
             $query = "INSERT INTO $this->table (" . implode(',',$this->fields) . ") VALUES(null,'" . implode("','",$this->data) . "')" ;
-            
             $this->con->query($query);
         }
+    }
+    
+    public function query($query){
+        $this->con->query($query);
+    }
+    
+    public function queryResult($query){
+        return $this->con->queryResult($query);
     }
 }
 

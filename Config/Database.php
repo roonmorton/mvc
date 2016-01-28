@@ -21,6 +21,7 @@ class Database{
             $result->free();
         }else{
             echo 'No se Pudo Realizar la consulta: ' . $query . " Error: " .$this->con->error; 
+            exit;
         }
         return $res;
     }
@@ -28,6 +29,7 @@ class Database{
     public function query($query){
         if(!($this->con->query($query))){   
             echo 'No se Pudo Realizar la consulta: ' . $query . " Error: " .$this->con->error;
+            exit;
         }
     }
 
@@ -36,9 +38,7 @@ class Database{
         foreach($params as $key => $value)
             $refs[$key] = &$params[$key];
         $p = array_merge(array('type' => str_repeat('s',count($params))),$refs);
-        
         $statement = $this->con->prepare($query);
-        
         call_user_func_array(array($statement,'bind_param'),$p);
         $statement->execute();
 

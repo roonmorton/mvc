@@ -12,8 +12,6 @@ abstract class Controller{
     }
     
     
-    public static function redirecto($route){
-        header('Location: '. SERVER . str_replace('.','/',$route));
-    }
+    
 }
 ?>

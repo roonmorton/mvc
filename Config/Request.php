@@ -28,6 +28,7 @@ class Request{
             
         }else
             echo 'Error en La ruta... : ' . $_GET['url'];
+        exit;
 
     }
 

@@ -9,8 +9,10 @@ class Autoload{
                 $adressClass = str_replace('\\','/',$class) . '.php';
                 if(file_exists($adressClass))
                     require_once $adressClass;
-                else
+                else{
                     echo '<br>Archivo clase no Encontrada: ' . $adressClass . '<br>';
+                    exit;
+                }
             }    
         );
     }

@@ -1,11 +1,19 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
-        <title></title>
+        <meta charset="utf-8">
+        <title><?php if(isset($this->title)) echo $this->title; ?></title>
+        <?php $this->css('css.estilos');?>
+<!--        <link href="http://allfont.es/allfont.css?fonts=source-sans-pro-extralight" rel="stylesheet" type="text/css" />-->
     </head>
     <body>
         <div class="container">
-            
+<!--        <?php $this->partial('partial.nav');?>-->
+        <div>
+            <?php $this->content();?>
         </div>
-    </body>
+<!--        <?php $this->partial('partial.footer');?>-->
+    </div>
+<?php $this->js('javascript.app');?>
+</body>
 </html>

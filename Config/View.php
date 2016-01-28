@@ -3,19 +3,42 @@
 namespace Config;
 
 class View{
-    
-    public function render($adress){
-        $adressView = ROOT . 'Public' . DS . 'Views' . DS . str_replace('.','/',$adress) . '.phtml';
-        if(is_readable($adressView)){
-            $headTemplate = ROOT . 'Public' . DS . 'Views' . DS . DEFAULT_TEMPLATE . DS . 'head.php';
-            if(is_readable($headTemplate))
-                include_once $headTemplate;
-            include_once $adressView;
-            $footerTemplate = ROOT . 'Public' . DS . 'Views' . DS . DEFAULT_TEMPLATE . DS . 'footer.php';
-            if(is_readable($footerTemplate))
-                include_once $footerTemplate;
-        }else
-            echo "Vista No encontrada: " .$adressView;
+
+    private $content;
+
+
+    public function render($content){
+        $this->content = str_replace('.','/',$content);
+        $urlTemplate = ROOT . 'Public' . DS . 'Views' . DS . str_replace('.','/',DEFAULT_TEMPLATE) . '.phtml';
+        if(is_readable($urlTemplate))
+            include_once $urlTemplate;
+        else{
+            echo "No se encontro Template... ;";
+            exit;
+        }
+
+        return $this;
+
+    }
+
+    public function partial($view){
+        $urlPartial = ROOT . 'Public' . DS . 'Views' . DS . str_replace('.','/',$view) . '.phtml';
+
+        if(is_readable($urlPartial))
+            include_once $urlPartial;
+        else{
+            echo 'No se encontrol a vista parcial: <strong>' . $urlPartial . '</strong><br>';
+            exit;
+        }
+
+    }
+
+    public function content(){
+        $urlContent = ROOT . 'Public' . DS . 'Views' . DS . $this->content . '.phtml';
+        if(is_readable($urlContent))
+            require_once $urlContent;
+        else
+            echo 'No se encontro contenido a Cargar...';
     }
     
     public function css($adress){
@@ -24,7 +47,7 @@ class View{
         $tag = '<link rel="stylesheet" type="text/css" href="' . $adressCss .'" media="all"/>';
         echo $tag;
     }
-    
+
     public function js($adress){
         $adressJs = SERVER . 'Public/Resources/' . str_replace('.','/',$adress) . '.js';
         $tag = '<script src="'. $adressJs .'"></script>';

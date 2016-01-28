@@ -16,8 +16,10 @@ class Bootstrap{
             }else{
                 call_user_func(array(new $ctrl,$method));
             }
-        }else
+        }else{
             echo 'Controlador Inaccesible: <strong>' . $adressController .'</strong><br>';
+            exit;
+        }
     }
 }
 
